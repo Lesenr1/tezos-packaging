@@ -12,6 +12,12 @@ This repo provides various form of distribution for tezos-related executables
 (`tezos-client`, `tezos-client-admin`, `tezos-node`, `tezos-baker`,
 `tezos-accuser`, `tezos-endorser`, `tezos-signer` and `tezos-protocol-compiler`).
 
+Daemon binaries (as well as packages for them) have suffix that defines their target protocol,
+e.g. `tezos-baker-007-PsDELPH1` can be used only on the chain with 007 protocol.
+
+Other binaries can be used with all protocols. E.g. `tezos-node` can be set up to run different
+networks, more about this you can read in [this article](https://tezos.gitlab.io/user/multinetwork.html).
+
 ## Obtain binaries from github release
 
 Recomended way to get these binaries is to download them from assets from github release.
@@ -114,6 +120,31 @@ Apart, from `.service` file you'll need service startup script and default confi
 file, they can be found in [`scripts`](./docker/package/scripts) and
 [`defaults`](./docker/package/defaults) folders respectively.
 
+
+### Multiple similar systemd services
+
+It's possible to run multiple same services, e.g. two `tezos-node`s that run different
+networks.
+
+In order to do that you should copy systemd service file and config file, e.g.:
+```
+cp /lib/systemd/system/tezos-node.service /lib/systemd/system/tezos-node-1.service
+cp /etc/default/tezos-node /etc/default/tezos-node-1
+```
+
+Adjust new `/etc/default/tezos-node-1` config file and point to `EnrironentFile` in
+`/lib/systemd/system/tezos-node-1.service` to it.
+After that, you should be able to run new service:
+```
+systemctl start tezos-node-1
+```
+
+Another case for running multiple similar systemd services is when one wants to have
+multiple daemons that target different protocols.
+Since daemons for different protocols are provided in the different packages, they will
+have different service files. The only thing that needs to be changed is config file.
+One should provide desired node address, data directory for daemon files and node directory
+(however, this is the case only for baker daemon).
 
 ## Build Instructions
 
