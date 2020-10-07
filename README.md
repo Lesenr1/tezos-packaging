@@ -17,7 +17,7 @@ e.g. `tezos-baker-007-PsDELPH1` can be used only on the chain with 007 protocol.
 
 Other binaries can be used with all protocols if they're new enough. E.g.
 007 protocol is supported only from `v7.4`. `tezos-node` can be set up to run
-different networks, more about this you can read in [this article](https://tezos.gitlab.io/user/multinetwork.html).
+different networks, you can read more about this in [this article](https://tezos.gitlab.io/user/multinetwork.html).
 
 ## Obtain binaries from github release
 
