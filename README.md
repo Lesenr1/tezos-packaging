@@ -15,8 +15,9 @@ This repo provides various form of distribution for tezos-related executables
 Daemon binaries (as well as packages for them) have suffix that defines their target protocol,
 e.g. `tezos-baker-007-PsDELPH1` can be used only on the chain with 007 protocol.
 
-Other binaries can be used with all protocols. E.g. `tezos-node` can be set up to run different
-networks, more about this you can read in [this article](https://tezos.gitlab.io/user/multinetwork.html).
+Other binaries can be used with all protocols if they're new enough. E.g.
+007 protocol is supported only from `v7.4`. `tezos-node` can be set up to run
+different networks, more about this you can read in [this article](https://tezos.gitlab.io/user/multinetwork.html).
 
 ## Obtain binaries from github release
 
@@ -128,15 +129,15 @@ networks.
 
 In order to do that you should copy systemd service file and config file, e.g.:
 ```
-cp /lib/systemd/system/tezos-node.service /lib/systemd/system/tezos-node-1.service
-cp /etc/default/tezos-node /etc/default/tezos-node-1
+cp /lib/systemd/system/tezos-node.service /lib/systemd/system/tezos-node-zeronet.service
+cp /etc/default/tezos-node /etc/default/tezos-node-zeronet
 ```
 
-Adjust new `/etc/default/tezos-node-1` config file and point to `EnrironentFile` in
-`/lib/systemd/system/tezos-node-1.service` to it.
+Adjust new `/etc/default/tezos-node-zeronet` config file and point to `EnvironmentFile` in
+`/lib/systemd/system/tezos-node-zeronet.service` to it.
 After that, you should be able to run new service:
 ```
-systemctl start tezos-node-1
+systemctl start tezos-node-zeronet
 ```
 
 Another case for running multiple similar systemd services is when one wants to have
